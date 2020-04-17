@@ -14,13 +14,24 @@ int main()
 
     SOCKET hSocket;
     hSocket = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP);
+    if (hSocket == INVALID_SOCKET)
+    {
+        std::cout << "잘못된 소켓";
+        WSACleanup();
+        return 1;
+    }
 
-    SOCKADDR_IN tAddr = {};
+    SOCKADDR_IN tAddr;
+    memset(&tAddr, 0, sizeof(tAddr));
     tAddr.sin_family = AF_INET;
     tAddr.sin_port = htons(PORT);
     tAddr.sin_addr.s_addr = inet_addr(SERVER_IP);
 
-    connect(hSocket, (SOCKADDR*)&tAddr, sizeof(tAddr));
+    if (connect(hSocket, (SOCKADDR*)&tAddr, sizeof(tAddr)) == SOCKET_ERROR) {
+        std::cout << "connect 에러";
+        WSACleanup();
+        return 1;
+    }
 
     char cBuffer[] = "클라이언트가 보낸 메세지";
     send(hSocket, cBuffer, strlen(cBuffer), 0);

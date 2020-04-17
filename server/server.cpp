@@ -47,7 +47,8 @@ int main()
 	// 사실 윈도우에서는 descriptor가 없다. 커널에서 다루는 소켓은 디스크립터가 아니고 핸들이다.하지만, unix계열과의 이식성을 고려해,
 	// 다른핸들과는 다르게 특별히! 소켓은 unsigned int형으로 다뤄진다.
 
-	SOCKADDR_IN tListenAddr = {}; //이 구조체는 로컬 또는 원격 주소정보를 저장하게된다. 여기서는 hListen, 즉, 서버의 주소정보를 저장하는 구조체이다.
+	SOCKADDR_IN tListenAddr; //이 구조체는 로컬 또는 원격 주소정보를 저장하게된다. 여기서는 hListen, 즉, 서버의 주소정보를 저장하는 구조체이다.
+	memset(&tListenAddr, 0, sizeof(tListenAddr));
 	tListenAddr.sin_family = AF_INET; // sin_family는 domin을 의미한다. AF_INET은 이미 define되어있는 값인데, TCP,UDP,etc에서 정의되어 있다. 즉 모두 AF_INET을 사용해야한다.
 	tListenAddr.sin_port = htons(PORT); // htons 는 리틀엔디안을 빅엔디안으로 변경하는 것인데, 이는 메모리에 데이터를 저장하는 방법이다.
 										// 대형pc가 아닌 일반PC는 (주로 인텔) 리틀엔디안방식으로 데이터를 저장한다 . 예를 들어 1234 5678을 7856 3421로 저장하는 방법
@@ -55,6 +56,7 @@ int main()
 	tListenAddr.sin_addr.s_addr = htonl(INADDR_ANY); // 서버의 주소정보이므로, 서버컴퓨터, 즉 지금 사용중인 컴퓨터의 IP주소를 입력해야한다. 따라서
 													//   INADDR_ANY값(내 주소)를 넣어준다. 하지만, listen 소켓과 서버를 따로 구분한다면, 내 주소가 아닐수도있다.
 													// 이또한, 빅엔디안으로 변경하며, sin_addr뒤의 s_addr은 IPv4 internet address 를 뜻한다.
+	//inet_pton(AF_INET,"127.0.0.1",&tListenAddr.sin_addr);
 
 
 	//현재까지 변수관계를 정리하자면, 
@@ -64,7 +66,12 @@ int main()
 	//서버소켓은 소켓생성 - bind - listen - accept - 데이터교환 - close의 순서로 이루어진다. 여태까지 소켓의 초기화와 생성을 했다면, 이제 bind 해야한다.
 
 	
-	bind(hListen, (SOCKADDR*)&tListenAddr, sizeof(tListenAddr));
+	if (bind(hListen, (SOCKADDR*)&tListenAddr, sizeof(tListenAddr)) == SOCKET_ERROR) // bind함수는 블로킹함수
+	{
+		std::cout << "bind 에러";
+		WSACleanup();
+		return 0;
+	}
 	// bind함수는 3가지 인자를 받는다.
 	// 첫번째 인자는 , bind할 소켓을 전달한다.
 	// 두번째 인자는 , bind할 소켓의 주소정보 구조체의 주소를 전달한다.
@@ -74,31 +81,55 @@ int main()
 	//여기까지하면, bind 즉 listen소켓을 생성하고, listen소켓의 역할을 할 수 있도록 정보까지 입력한 상태
 	// listen소켓을 활용해보자. 즉, listen(들어오는 요청에 대하여 듣고) accept의 역할을 수행시켜보자.
 
-	listen(hListen, SOMAXCONN);
+	if(listen(hListen, SOMAXCONN) ==INVALID_SOCKET) // listen은 블로킹함수
+	{
+		std::cout << "listen 에러";
+		WSACleanup();
+		return 1;
+	}
+		
+
 	// listen소켓을 매개변수1로 줘, SOMAXCONN 즉, 동시 소켓 접속승인 최대치까지 listen이 가능하도록 열어놓는다.
 	// 이 때부터, listen소켓을 통해 서버가 클라이언트의 연결을 수신가능한 상태로 놓는다. 이 상태를 소켓 접속 대기 상태라고 한다.
 
-	SOCKADDR_IN tClntAddr = {};
+	SOCKADDR_IN tClntAddr;
+	memset(&tClntAddr, 0, sizeof(tClntAddr));
 	int iClntSize = sizeof(tClntAddr);
-	SOCKET hClient = accept(hListen, (SOCKADDR*)&tClntAddr, &iClntSize);
-	//이제 listen 중이던 hListen 소켓에 접속한 클라이언트가 생긴것이다. 
-	// 생겼다면, accept(접속승인)하는 역할을 수행한다.
-	// hClient는 서버에서 필요한 두번째 소켓으로, 접속승인한 클라이언트를 바로 연결해준다. 즉, 접속한 클라이언트와 연결되어 있는 소켓이다.
-	// 접속한 클라이언트도 주소정보를 가지고있을것이다. 그것은 클라이언트 쪽에서 입력해서 왔을것이다.
-	// 그 내용은 클라이언트 쪽에서 설명하겠지만, 아마도 서버와 마찬가지로 domain, port,ip아니겠는가?
-	// accopt는 bind와 유사하다. 이유는 ? bind는 listen소켓에 listen서버의 주소정보를 연결한다.
-	// accept는 hClient소켓(클라이언트와 연결하는 소켓)에 들어온 클라이언트 주소정보를 연결한다.
-	// 거의 같은역할이기때문이다. 하지만, 왜 accept의 세번째인자는 주소정보로 클라이언트 주소의 크기를 받는지는 모르겠다 ㅋㅋ
+	char cByte;
+	SOCKET hClient;
+	int cnt = 0;
+	while (1) {
+		hClient = accept(hListen, (SOCKADDR*)&tClntAddr, &iClntSize);
+		if (hClient == INVALID_SOCKET)
+		{
+			std::cout << "accept 에러";
+		}
+		else {
+			cnt += 1;
+			std::cout << "클라리언트 접속 " << cnt <<"번째\n" ;
+		}
 
-	char cBuffer[PACKET_SIZE] = {};
-	recv(hClient, cBuffer, PACKET_SIZE, 0);
-	std::cout << cBuffer;
 
-	char sBuffer[] = "서버도 응답해주었다^^";
-	send(hClient, sBuffer, strlen(sBuffer), 0);
+		//이제 listen 중이던 hListen 소켓에 접속한 클라이언트가 생긴것이다. 
+		// 생겼다면, accept(접속승인)하는 역할을 수행한다.
+		// hClient는 서버에서 필요한 두번째 소켓으로, 접속승인한 클라이언트를 바로 연결해준다. 즉, 접속한 클라이언트와 연결되어 있는 소켓이다.
+		// 접속한 클라이언트도 주소정보를 가지고있을것이다. 그것은 클라이언트 쪽에서 입력해서 왔을것이다.
+		// 그 내용은 클라이언트 쪽에서 설명하겠지만, 아마도 서버와 마찬가지로 domain, port,ip아니겠는가?
+		// accopt는 bind와 유사하다. 이유는 ? bind는 listen소켓에 listen서버의 주소정보를 연결한다.
+		// accept는 hClient소켓(클라이언트와 연결하는 소켓)에 들어온 클라이언트 주소정보를 연결한다.
+		// 거의 같은역할이기때문이다. 하지만, 왜 accept의 세번째인자는 주소정보로 클라이언트 주소의 크기를 받는지는 모르겠다 ㅋㅋ
+
+		char cBuffer[PACKET_SIZE];
+		while (cByte = recv(hClient, cBuffer, PACKET_SIZE, 0) >0 ){
+			std::cout << cBuffer;
+			send(hClient, cBuffer, strlen(cBuffer), 0);
+		}
+		closesocket(hClient);
+
+	}
 
 	//소켓은 사용 후에 순서대로 모두 해제한다.
-	closesocket(hClient);
+	
 	closesocket(hListen);
 
 
