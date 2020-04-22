@@ -1,2 +1,14 @@
 ﻿  2dGame_2.cpp
+C:\git\KwangWoongLee\study\2dGame_2\2dGame_2.cpp(285,34): warning C4244: '=': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\2dGame_2\2dGame_2.cpp(286,41): warning C4244: '=': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\2dGame_2\2dGame_2.cpp(290,41): warning C4244: '=': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\2dGame_2\2dGame_2.cpp(291,35): warning C4244: '=': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\2dGame_2\2dGame_2.cpp(295,33): warning C4244: '=': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\2dGame_2\2dGame_2.cpp(296,41): warning C4244: '=': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\2dGame_2\2dGame_2.cpp(300,41): warning C4244: '=': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\2dGame_2\2dGame_2.cpp(301,36): warning C4244: '=': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\2dGame_2\2dGame_2.cpp(306,79): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\2dGame_2\2dGame_2.cpp(306,62): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\2dGame_2\2dGame_2.cpp(306,47): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\2dGame_2\2dGame_2.cpp(306,31): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   2dGame_2.vcxproj -> C:\git\KwangWoongLee\study\2dGame_2\Debug\2dGame_2.exe

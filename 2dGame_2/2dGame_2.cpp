@@ -4,6 +4,11 @@
 #include "framework.h"
 #include "2dGame_2.h"
 
+typedef struct _tagRectangle {
+    float left, right, top, bottom;
+
+} RECTANGLE, *PRECTANGLE;
+
 #define MAX_LOADSTRING 100
 
 
@@ -15,7 +20,12 @@ WCHAR szWindowClass[MAX_LOADSTRING];            // 기본 창 클래스 이름�
 HWND    g_hWnd;
 HDC     g_hdc;
 bool    g_bLoop = true;
-RECT    g_tPlayer = { 100,100, 200,200 };
+RECTANGLE    g_tPlayer = { 100.f,100.f, 200.f,200.f };
+
+//시간을 구하기 위한 변수들
+LARGE_INTEGER g_tSecond;
+LARGE_INTEGER g_tTime;
+float g_fDeltaTime;
 
 // 이 코드 모듈에 포함된 함수의 선언을 전달합니다:
 ATOM                MyRegisterClass(HINSTANCE hInstance);
@@ -51,6 +61,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     MSG msg;
 
+    QueryPerformanceFrequency(&g_tSecond);
+    QueryPerformanceCounter(&g_tTime);
+
     // 기본 메시지 루프입니다:
     while (g_bLoop) //원래 : GetMessage(&msg, nullptr, 0, 0), 내가 임의로 메시지루프를 조정한다. 
         //GetMessage 가 아닌 PeekMessage를 사용하는이유 : GetMessage는 사용자의 메시지가 없으면 작동하지않는다.
@@ -67,6 +80,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         {
             TranslateMessage(&msg);
             DispatchMessage(&msg);
+
         }
 
         else 
@@ -188,6 +202,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         break;
         //윈도우를 종료할 때 들어오는 메시지.
     case WM_DESTROY:
+        g_bLoop = false;
         PostQuitMessage(0);
         break;
     default:
@@ -217,27 +232,76 @@ INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 }
 
 void Run(){
+    //DeltaTime 을 구해준다.
+    LARGE_INTEGER tTime;
+    QueryPerformanceCounter(&tTime);
+
+    g_fDeltaTime = (tTime.QuadPart - g_tTime.QuadPart) / (float)g_tSecond.QuadPart;
+
+    g_tTime = tTime;
+
+    static float fTimeScale = 1.f;
+    if (GetAsyncKeyState(VK_F1) & 0x8000) {
+        fTimeScale -= g_fDeltaTime;
+        if (fTimeScale < 0.f)
+            fTimeScale = 0.f;
+    }
+    if (GetAsyncKeyState(VK_F2) & 0x8000) {
+        fTimeScale += g_fDeltaTime;
+        if (fTimeScale > 1.f)
+            fTimeScale = 1.f;
+    }
+
+    //플레이어 초당 이동속도 :300
+    float fSpeed = (600 + 600 * 0.9f) * g_fDeltaTime * fTimeScale;
+
 
     if (GetAsyncKeyState('D') & 0x8000)
     {
-        g_tPlayer.left += 1;
-        g_tPlayer.right += 1;
+        g_tPlayer.left += fSpeed;
+        g_tPlayer.right += fSpeed;
     }
     if (GetAsyncKeyState('A') & 0x8000)
     {
-        g_tPlayer.left -= 1;
-        g_tPlayer.right -= 1;
+        g_tPlayer.left -= fSpeed;
+        g_tPlayer.right -= fSpeed;
     }
     if (GetAsyncKeyState('W') & 0x8000)
     {
-        g_tPlayer.top -= 1;
-        g_tPlayer.bottom -= 1;
+        g_tPlayer.top -= fSpeed;
+        g_tPlayer.bottom -= fSpeed;
     }
     if (GetAsyncKeyState('S') & 0x8000)
     {
-        g_tPlayer.top += 1;
-        g_tPlayer.bottom += 1;
+        g_tPlayer.top += fSpeed;
+        g_tPlayer.bottom += fSpeed;
     }
+
+    RECT rcWindow;
+    GetClientRect(g_hWnd, &rcWindow);
+
+    if (g_tPlayer.left < rcWindow.left)
+    {
+        g_tPlayer.left = rcWindow.left;
+        g_tPlayer.right = rcWindow.left + 100;
+    }
+    else if (g_tPlayer.right > rcWindow.right)
+    {
+        g_tPlayer.left = rcWindow.right - 100;
+        g_tPlayer.right = rcWindow.right;
+    }
+    if (g_tPlayer.top < rcWindow.top)
+    {
+        g_tPlayer.top = rcWindow.top;
+        g_tPlayer.bottom = rcWindow.top + 100;
+    }
+    else if (g_tPlayer.bottom > rcWindow.bottom)
+    {
+        g_tPlayer.top = rcWindow.bottom -100;
+        g_tPlayer.bottom = rcWindow.bottom;
+    }
+
+
     //내 hdc를 만듦으로써 paind 메세지로 가지 않고도 그림을 그렸다.
     Rectangle(g_hdc, g_tPlayer.left, g_tPlayer.top, g_tPlayer.right, g_tPlayer.bottom);
 
