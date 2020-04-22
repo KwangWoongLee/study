@@ -3,3 +3,11 @@
 ################################################################################
 
 /2dGame/.vs/2dGame/v16/Browse.VC.opendb
+################################################################################
+# 이 .gitignore 파일은 Microsoft(R) Visual Studio에서 자동으로 만들어졌습니다.
+################################################################################
+
+/.vs/study/v16/Browse.VC.db
+/server/.vs/server/v16/Browse.VC.opendb
+/client/.vs/client/v16/Browse.VC.opendb
+/Multiplexing_server/.vs/Multiplexing_server/v16/Browse.VC.opendb
