@@ -3,14 +3,39 @@
 
 #include "framework.h"
 #include "2dGame_2.h"
+#include <list>
+#include <math.h>
+
+using namespace std;
+
+typedef struct _tacSphere {
+    float x;
+    float y;
+    float r;
+
+}SPHERE, *PSPHERE;
 
 typedef struct _tagRectangle {
     float left, right, top, bottom;
 
 } RECTANGLE, *PRECTANGLE;
 
-#define MAX_LOADSTRING 100
+typedef struct _tagBullet {
+    SPHERE tSphere;
+    float fDist;
+    float fLimitDist;
+    float fAngle;
+} BULLET, *PBULLET;
 
+typedef struct _tagMonster {
+    SPHERE tSphere;
+    float fSpeed;
+    float fTime;
+    float fLimitTime;
+    int iDir;
+}MONSTER, *PMONSTER;
+#define MAX_LOADSTRING 100
+#define PI 3.14159f
 
 void Run();
 // 전역 변수:
@@ -20,7 +45,19 @@ WCHAR szWindowClass[MAX_LOADSTRING];            // 기본 창 클래스 이름�
 HWND    g_hWnd;
 HDC     g_hdc;
 bool    g_bLoop = true;
-RECTANGLE    g_tPlayer = { 100.f,100.f, 200.f,200.f };
+SPHERE    g_tPlayer = { 50.f,50.f, 50.f};
+POINT g_tGunPos;
+float g_fPlayerAngle;
+float g_fGunLength = 70.f;
+MONSTER g_tMonster;
+
+
+//플레이어 총알 구현을 위한 리스트
+list<BULLET> g_PlayerBulletList;
+
+//몬스터 총알
+list<BULLET> g_MonsterBulletList;
+
 
 //시간을 구하기 위한 변수들
 LARGE_INTEGER g_tSecond;
@@ -56,6 +93,21 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     //화면용 DC생성
     g_hdc = GetDC(g_hWnd);
+
+    //몬스터 초기화
+    g_tMonster.tSphere.x = 800.f - 50.f;
+    g_tMonster.tSphere.y = 300.f;
+    g_tMonster.tSphere.r = 50.f;
+    g_tMonster.fSpeed = 300.f;
+    g_tMonster.iDir = 1;
+    g_tMonster.fLimitTime = 2.f;
+    g_tMonster.fTime = 0.f;
+
+    //플레이어 총구의 위치
+    g_tGunPos.x = g_tPlayer.x + cosf(g_fPlayerAngle) * g_fGunLength;
+    g_tGunPos.y = g_tPlayer.y + sinf(g_fPlayerAngle) * g_fGunLength;
+
+
 
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_MY2DGAME2));
 
@@ -253,56 +305,241 @@ void Run(){
     }
 
     //플레이어 초당 이동속도 :300
-    float fSpeed = (600 + 600 * 0.9f) * g_fDeltaTime * fTimeScale;
+    float fSpeed = (400.f) * g_fDeltaTime * fTimeScale;
 
 
     if (GetAsyncKeyState('D') & 0x8000)
     {
-        g_tPlayer.left += fSpeed;
-        g_tPlayer.right += fSpeed;
+        g_fPlayerAngle += PI * g_fDeltaTime * fTimeScale;
     }
     if (GetAsyncKeyState('A') & 0x8000)
     {
-        g_tPlayer.left -= fSpeed;
-        g_tPlayer.right -= fSpeed;
+        g_fPlayerAngle -= PI * g_fDeltaTime * fTimeScale;
     }
     if (GetAsyncKeyState('W') & 0x8000)
     {
-        g_tPlayer.top -= fSpeed;
-        g_tPlayer.bottom -= fSpeed;
+        g_tPlayer.x += fSpeed * cosf(g_fPlayerAngle) * fTimeScale;
+        g_tPlayer.y += fSpeed * sinf(g_fPlayerAngle) * fTimeScale;
+
     }
     if (GetAsyncKeyState('S') & 0x8000)
     {
-        g_tPlayer.top += fSpeed;
-        g_tPlayer.bottom += fSpeed;
+        g_tPlayer.x -= fSpeed * cosf(g_fPlayerAngle) * fTimeScale;
+        g_tPlayer.y -= fSpeed * sinf(g_fPlayerAngle) * fTimeScale;
+
+    }
+    //총구위치를 구한다.
+    g_tGunPos.x = g_tPlayer.x + cosf(g_fPlayerAngle) * g_fGunLength;
+    g_tGunPos.y = g_tPlayer.y + sinf(g_fPlayerAngle) * g_fGunLength;
+
+    if (GetAsyncKeyState(VK_SPACE) & 0x8000)
+    {
+        BULLET tBullet;
+
+        tBullet.tSphere.x = g_tGunPos.x ;
+        tBullet.tSphere.y = g_tGunPos.y ;
+        tBullet.tSphere.r = 25.f;
+
+        tBullet.fDist = 0.f;
+        tBullet.fLimitDist = 500.f;
+        tBullet.fAngle = g_fPlayerAngle;
+        g_PlayerBulletList.push_back(tBullet);
+    }
+
+    if (GetAsyncKeyState(VK_LBUTTON) & 0x8000)
+    {
+        //마우스 위치 얻어오기.
+        POINT ptMouse;
+        GetCursorPos(&ptMouse); // 여기서 얻은 포인트는 스크린좌표
+        // 아래 함수를 통해 클라이언트 좌표로 변환
+        ScreenToClient(g_hWnd, &ptMouse);
+
+
+        float fMX = g_tMonster.tSphere.x - ptMouse.x;
+        float fMY = g_tMonster.tSphere.y - ptMouse.y;
+        float fMDist = sqrtf(fMX * fMX + fMY * fMY);
+
+        //플레이어와 충돌처리
+
+        if (fMDist <= g_tMonster.tSphere.r)
+        {
+            MessageBox(NULL, L"몬스터 클릭", L"마우스클릭", MB_OK);
+        }
+
+        fMX = g_tPlayer.x - ptMouse.x;
+        fMY = g_tPlayer.y - ptMouse.y;
+        fMDist = sqrtf(fMX * fMX + fMY * fMY);
+
+        if (fMDist <= g_tPlayer.r)
+        {
+            MessageBox(NULL, L"플레이어클릭", L"마우스클릭", MB_OK);
+        }
     }
 
     RECT rcWindow;
     GetClientRect(g_hWnd, &rcWindow);
+    SetRect(&rcWindow, 0, 0, 800, 600);
 
-    if (g_tPlayer.left < rcWindow.left)
+    if (g_tPlayer.x < rcWindow.left +g_tPlayer.r)
     {
-        g_tPlayer.left = rcWindow.left;
-        g_tPlayer.right = rcWindow.left + 100;
+        g_tPlayer.x = rcWindow.left + g_tPlayer.r;
     }
-    else if (g_tPlayer.right > rcWindow.right)
+    else if (g_tPlayer.x > rcWindow.right - g_tPlayer.r)
     {
-        g_tPlayer.left = rcWindow.right - 100;
-        g_tPlayer.right = rcWindow.right;
+        g_tPlayer.x = rcWindow.right - g_tPlayer.r;
     }
-    if (g_tPlayer.top < rcWindow.top)
+    if (g_tPlayer.y < rcWindow.top + g_tPlayer.r)
     {
-        g_tPlayer.top = rcWindow.top;
-        g_tPlayer.bottom = rcWindow.top + 100;
+        g_tPlayer.y = rcWindow.top + g_tPlayer.r;
     }
-    else if (g_tPlayer.bottom > rcWindow.bottom)
+    else if (g_tPlayer.y > rcWindow.bottom - g_tPlayer.r)
     {
-        g_tPlayer.top = rcWindow.bottom -100;
-        g_tPlayer.bottom = rcWindow.bottom;
+        g_tPlayer.y = rcWindow.bottom - g_tPlayer.r;
     }
 
+    list<BULLET>::iterator iter;
+    list<BULLET>::iterator iterEnd = g_PlayerBulletList.end();
 
+    
+
+    //몬스터 이동
+    g_tMonster.tSphere.y += g_tMonster.fSpeed * g_fDeltaTime * fTimeScale * g_tMonster.iDir;
+
+    if (g_tMonster.tSphere.y+ g_tMonster.tSphere.r >= 600.f)
+    {
+        g_tMonster.iDir *= -1;
+        g_tMonster.tSphere.y = 550.f;
+
+    }
+    else if (g_tMonster.tSphere.y - g_tMonster.tSphere.r <= 0.f)
+    {
+        g_tMonster.iDir *= -1;
+        g_tMonster.tSphere.y = 50.f;
+        
+    }
+
+    g_tMonster.fTime += g_fDeltaTime;
+    if (g_tMonster.fTime >= g_tMonster.fLimitTime) 
+    {
+        g_tMonster.fTime -= g_tMonster.fLimitTime;
+
+        BULLET tBullet = {};
+
+        tBullet.tSphere.x = g_tMonster.tSphere.x - g_tMonster.tSphere.r/2.f;
+        tBullet.tSphere.y = g_tMonster.tSphere.y;
+        tBullet.tSphere.r = g_tMonster.tSphere.r / 2.f;
+        tBullet.fDist = 0.f;
+        tBullet.fLimitDist = 800.f;
+        tBullet.fAngle = -g_fPlayerAngle;
+       
+        g_MonsterBulletList.push_back(tBullet);
+
+    }
+
+
+    //플레이어 총알 이동
+    fSpeed = (300.f) * g_fDeltaTime * fTimeScale;
+    iterEnd = g_PlayerBulletList.end();
+    for (iter = g_PlayerBulletList.begin(); iter != iterEnd;)
+    {
+        (*iter).tSphere.x += cosf((*iter).fAngle)*fSpeed;
+        (*iter).tSphere.y += sinf((*iter).fAngle)*fSpeed;
+        (*iter).fDist += fSpeed;
+
+        float fX = (*iter).tSphere.x - g_tMonster.tSphere.x;
+        float fY = (*iter).tSphere.y - g_tMonster.tSphere.y;
+        float fDist = sqrtf(fX * fX + fY * fY);
+
+        if (fDist <= (*iter).tSphere.r + g_tMonster.tSphere.r)
+        {
+            iter = g_PlayerBulletList.erase(iter);
+            iterEnd = g_PlayerBulletList.end();
+        }
+
+
+        else if ((*iter).fDist >= (*iter).fLimitDist)
+        {
+            iter = g_PlayerBulletList.erase(iter);
+            iterEnd = g_PlayerBulletList.end();
+
+        }
+
+        else if ((*iter).tSphere.x + (*iter).tSphere.r >= 800)
+        {
+            iter = g_PlayerBulletList.erase(iter);
+            iterEnd = g_PlayerBulletList.end();
+        }
+        else
+        {
+            ++iter;
+        }
+
+    }
+
+    //몬스터 총알 이동
+    iterEnd = g_MonsterBulletList.end();
+    for (iter = g_MonsterBulletList.begin(); iter != iterEnd;)
+    {
+        (*iter).tSphere.x -= fSpeed;
+        (*iter).fDist += fSpeed;
+
+        float fX = (*iter).tSphere.x - g_tPlayer.x;
+        float fY = (*iter).tSphere.y - g_tPlayer.y;
+        float fDist = sqrtf(fX * fX + fY * fY);
+
+
+
+        // if 문 걸어서 플레이어와 몬스터의 총알 충돌처리 하기
+
+
+        //
+
+        if ((*iter).fDist >= (*iter).fLimitDist)
+        {
+            iter = g_MonsterBulletList.erase(iter);
+            iterEnd = g_MonsterBulletList.end();
+
+        }
+
+        else if ((*iter).tSphere.x - (*iter).tSphere.r <= 0)
+        {
+            iter = g_MonsterBulletList.erase(iter);
+            iterEnd = g_MonsterBulletList.end();
+        }
+
+        else
+        {
+            ++iter;
+        }
+
+    }
+
+    Rectangle(g_hdc, 0, 0, 800, 600);
     //내 hdc를 만듦으로써 paind 메세지로 가지 않고도 그림을 그렸다.
-    Rectangle(g_hdc, g_tPlayer.left, g_tPlayer.top, g_tPlayer.right, g_tPlayer.bottom);
+    Ellipse(g_hdc, g_tPlayer.x - g_tPlayer.r, g_tPlayer.y + g_tPlayer.r,
+        g_tPlayer.x + g_tPlayer.r, g_tPlayer.y - g_tPlayer.r);
+    MoveToEx(g_hdc, g_tPlayer.x, g_tPlayer.y, NULL);
+    LineTo(g_hdc, g_tGunPos.x, g_tGunPos.y);
+
+    //몬스터 그려주기
+    
+    Ellipse(g_hdc, g_tMonster.tSphere.x - g_tMonster.tSphere.r, g_tMonster.tSphere.y + g_tMonster.tSphere.r,
+        g_tMonster.tSphere.x + g_tMonster.tSphere.r, g_tMonster.tSphere.y - g_tMonster.tSphere.r);
+    iterEnd = g_PlayerBulletList.end();
+    for (iter = g_PlayerBulletList.begin(); iter != iterEnd; iter++)
+    {
+
+        Ellipse(g_hdc, (*iter).tSphere.x - (*iter).tSphere.r, (*iter).tSphere.y + (*iter).tSphere.r, (*iter).tSphere.x + (*iter).tSphere.r, (*iter).tSphere.y - (*iter).tSphere.r);
+
+    }
+    iterEnd = g_MonsterBulletList.end();
+    for (iter = g_MonsterBulletList.begin(); iter != iterEnd; iter++)
+    {
+
+        Ellipse(g_hdc, (*iter).tSphere.x - (*iter).tSphere.r, (*iter).tSphere.y + (*iter).tSphere.r, (*iter).tSphere.x + (*iter).tSphere.r, (*iter).tSphere.y - (*iter).tSphere.r);
+
+    }
+    
+
 
 }
