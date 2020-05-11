@@ -1,2 +1,89 @@
-﻿  main.cpp
+﻿  Core.cpp
+C:\git\KwangWoongLee\study\APIFramework\Include\Types.h(33,8): warning C4244: '=': 'const LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\APIFramework\Include\Types.h(34,8): warning C4244: '=': 'const LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\APIFramework\Include\Types.h(45,8): warning C4244: '=': 'const LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\APIFramework\Include\Types.h(46,8): warning C4244: '=': 'const LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  Ref.cpp
+C:\git\KwangWoongLee\study\APIFramework\Include\Types.h(33,8): warning C4244: '=': 'const LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\APIFramework\Include\Types.h(34,8): warning C4244: '=': 'const LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\APIFramework\Include\Types.h(45,8): warning C4244: '=': 'const LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\APIFramework\Include\Types.h(46,8): warning C4244: '=': 'const LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  Timer.cpp
+C:\git\KwangWoongLee\study\APIFramework\Include\Types.h(33,8): warning C4244: '=': 'const LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\APIFramework\Include\Types.h(34,8): warning C4244: '=': 'const LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\APIFramework\Include\Types.h(45,8): warning C4244: '=': 'const LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\APIFramework\Include\Types.h(46,8): warning C4244: '=': 'const LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  main.cpp
+C:\git\KwangWoongLee\study\APIFramework\Include\Types.h(33,8): warning C4244: '=': 'const LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\APIFramework\Include\Types.h(34,8): warning C4244: '=': 'const LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\APIFramework\Include\Types.h(45,8): warning C4244: '=': 'const LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\APIFramework\Include\Types.h(46,8): warning C4244: '=': 'const LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  Minion.cpp
+C:\git\KwangWoongLee\study\APIFramework\Include\Types.h(33,8): warning C4244: '=': 'const LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\APIFramework\Include\Types.h(34,8): warning C4244: '=': 'const LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\APIFramework\Include\Types.h(45,8): warning C4244: '=': 'const LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\APIFramework\Include\Types.h(46,8): warning C4244: '=': 'const LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\APIFramework\Include\Object\Obj.h(73,17): warning C4244: '=': 'const LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\APIFramework\Include\Object\Obj.h(74,17): warning C4244: '=': 'const LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\APIFramework\Include\Object\Minion.cpp(62,68): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\APIFramework\Include\Object\Minion.cpp(62,46): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\APIFramework\Include\Object\Minion.cpp(62,33): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\APIFramework\Include\Object\Minion.cpp(62,23): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  MoveObj.cpp
+C:\git\KwangWoongLee\study\APIFramework\Include\Types.h(33,8): warning C4244: '=': 'const LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\APIFramework\Include\Types.h(34,8): warning C4244: '=': 'const LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\APIFramework\Include\Types.h(45,8): warning C4244: '=': 'const LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\APIFramework\Include\Types.h(46,8): warning C4244: '=': 'const LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\APIFramework\Include\Object\Obj.h(73,17): warning C4244: '=': 'const LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\APIFramework\Include\Object\Obj.h(74,17): warning C4244: '=': 'const LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  Obj.cpp
+C:\git\KwangWoongLee\study\APIFramework\Include\Types.h(33,8): warning C4244: '=': 'const LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\APIFramework\Include\Types.h(34,8): warning C4244: '=': 'const LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\APIFramework\Include\Types.h(45,8): warning C4244: '=': 'const LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\APIFramework\Include\Types.h(46,8): warning C4244: '=': 'const LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\APIFramework\Include\Object\Obj.h(73,17): warning C4244: '=': 'const LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\APIFramework\Include\Object\Obj.h(74,17): warning C4244: '=': 'const LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  Player.cpp
+C:\git\KwangWoongLee\study\APIFramework\Include\Types.h(33,8): warning C4244: '=': 'const LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\APIFramework\Include\Types.h(34,8): warning C4244: '=': 'const LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\APIFramework\Include\Types.h(45,8): warning C4244: '=': 'const LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\APIFramework\Include\Types.h(46,8): warning C4244: '=': 'const LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\APIFramework\Include\Object\Obj.h(73,17): warning C4244: '=': 'const LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\APIFramework\Include\Object\Obj.h(74,17): warning C4244: '=': 'const LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\APIFramework\Include\Object\Player.cpp(76,68): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\APIFramework\Include\Object\Player.cpp(76,46): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\APIFramework\Include\Object\Player.cpp(76,33): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\APIFramework\Include\Object\Player.cpp(76,23): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  StaticObj.cpp
+C:\git\KwangWoongLee\study\APIFramework\Include\Types.h(33,8): warning C4244: '=': 'const LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\APIFramework\Include\Types.h(34,8): warning C4244: '=': 'const LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\APIFramework\Include\Types.h(45,8): warning C4244: '=': 'const LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\APIFramework\Include\Types.h(46,8): warning C4244: '=': 'const LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\APIFramework\Include\Object\Obj.h(73,17): warning C4244: '=': 'const LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\APIFramework\Include\Object\Obj.h(74,17): warning C4244: '=': 'const LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  InGameScene.cpp
+C:\git\KwangWoongLee\study\APIFramework\Include\Types.h(33,8): warning C4244: '=': 'const LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\APIFramework\Include\Types.h(34,8): warning C4244: '=': 'const LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\APIFramework\Include\Types.h(45,8): warning C4244: '=': 'const LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\APIFramework\Include\Types.h(46,8): warning C4244: '=': 'const LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\APIFramework\Include\Object\Obj.h(73,17): warning C4244: '=': 'const LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\APIFramework\Include\Object\Obj.h(74,17): warning C4244: '=': 'const LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  Layer.cpp
+C:\git\KwangWoongLee\study\APIFramework\Include\Types.h(33,8): warning C4244: '=': 'const LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\APIFramework\Include\Types.h(34,8): warning C4244: '=': 'const LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\APIFramework\Include\Types.h(45,8): warning C4244: '=': 'const LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\APIFramework\Include\Types.h(46,8): warning C4244: '=': 'const LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\APIFramework\Include\Object\Obj.h(73,17): warning C4244: '=': 'const LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\APIFramework\Include\Object\Obj.h(74,17): warning C4244: '=': 'const LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  Scene.cpp
+C:\git\KwangWoongLee\study\APIFramework\Include\Types.h(33,8): warning C4244: '=': 'const LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\APIFramework\Include\Types.h(34,8): warning C4244: '=': 'const LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\APIFramework\Include\Types.h(45,8): warning C4244: '=': 'const LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\APIFramework\Include\Types.h(46,8): warning C4244: '=': 'const LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  Scenemanager.cpp
+C:\git\KwangWoongLee\study\APIFramework\Include\Types.h(33,8): warning C4244: '=': 'const LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\APIFramework\Include\Types.h(34,8): warning C4244: '=': 'const LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\APIFramework\Include\Types.h(45,8): warning C4244: '=': 'const LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\git\KwangWoongLee\study\APIFramework\Include\Types.h(46,8): warning C4244: '=': 'const LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  코드를 생성하고 있습니다...
   APIFramework.vcxproj -> C:\git\KwangWoongLee\study\APIFramework\Include\../Bin/APIFramework_Debug.exe

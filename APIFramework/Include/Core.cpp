@@ -1,15 +1,20 @@
 #include "Core.h"
+#include "Scene/Scenemanager.h"
+#include "../Include/Core/Timer.h"
 
 Core* Core::m_pInst = NULL;
 bool Core::m_bLoop = true;
 
 Core::Core()
 {
-
+    _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+    //_CrtSetBreakAlloc();
 }
 
 Core::~Core()
 {
+    DESTROY_SINGLE(Scenemanager);
+    DESTROY_SINGLE(CTimer);
 }
 
 bool Core::Init(HINSTANCE hInst)
@@ -24,6 +29,18 @@ bool Core::Init(HINSTANCE hInst)
     m_tRS.iH = 720; 
 
     Create();
+
+    //화면 DC를 만들어준다.
+    m_hDc = GetDC(m_hWnd);
+
+    //타이머 초기화
+    if (!GET_SINGLE(CTimer)->Init())
+        return false;
+
+    //장면관리자 초기화
+    if (!GET_SINGLE(Scenemanager)->Init())
+        return false;
+        
 
 	return true;
 }
@@ -52,9 +69,9 @@ int Core::Run()
 
         }
 
-        else
+        else // 실제 게임로직
         { 
-
+            Logic();
         }
     }
 
@@ -133,4 +150,48 @@ BOOL Core::Create()
 
 
     return TRUE;
+}
+
+void Core::Logic()
+{
+    GET_SINGLE(CTimer)->Update();
+    
+    float fDeltaTime = GET_SINGLE(CTimer)->GetDeltaTime();
+
+    Input(fDeltaTime);
+    Update(fDeltaTime);
+    LateUpdate(fDeltaTime);
+    Collision(fDeltaTime);
+    Render(fDeltaTime);
+
+}
+
+
+void Core::Input(float fDeltaTime)
+{
+    GET_SINGLE(Scenemanager)->Input(fDeltaTime);
+}
+
+
+int Core::Update(float fDeltaTime)
+{
+    GET_SINGLE(Scenemanager)->Update(fDeltaTime);
+    return 0;
+}
+
+
+int Core::LateUpdate(float fDeltaTime)
+{
+    GET_SINGLE(Scenemanager)->LateUpdate(fDeltaTime);
+    return 0;
+}
+
+void Core::Collision(float fDeltaTime)
+{
+    GET_SINGLE(Scenemanager)->Collision(fDeltaTime);
+}
+
+void Core::Render(float fDeltaTime)
+{
+    GET_SINGLE(Scenemanager)->Render(m_hDc,fDeltaTime);
 }

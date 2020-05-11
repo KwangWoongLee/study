@@ -16,13 +16,70 @@
     <Filter Include="Core">
       <UniqueIdentifier>{ae6321bf-1f49-4aab-8d95-26a5c823b974}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Timer">
+      <UniqueIdentifier>{8dce125f-f6ff-4105-8340-756a2847d1ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{d7b058fe-1307-4323-9bc9-12011fd65854}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Layer">
+      <UniqueIdentifier>{956d7d58-fab2-47fc-81af-48d89fda164b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object">
+      <UniqueIdentifier>{255efb21-16ca-41ce-9cb0-6ac0a4b085f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\MoveObj">
+      <UniqueIdentifier>{c0a94c48-27af-4e82-9cb8-22050d5078c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\StaticObj">
+      <UniqueIdentifier>{0a144639-1542-418b-b870-ba81bcdc1c2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\MoveObj\Player">
+      <UniqueIdentifier>{ac76d702-ded7-4aeb-ac65-94de35f47d0e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\MoveObj\Monster">
+      <UniqueIdentifier>{0cc36d73-f012-4735-b86f-75df2d4ee7e4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Core\Timer.cpp">
+      <Filter>Core\Timer</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Scene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
     <ClCompile Include="Core.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Scenemanager.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\InGameScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Layer.cpp">
+      <Filter>Scene\Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Obj.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Ref.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\MoveObj.cpp">
+      <Filter>Object\MoveObj</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\StaticObj.cpp">
+      <Filter>Object\StaticObj</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Player.cpp">
+      <Filter>Object\MoveObj\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Minion.cpp">
+      <Filter>Object\MoveObj\Monster</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -32,14 +89,50 @@
     <ClInclude Include="Macro.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Core.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Types.h">
       <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Flag.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Timer.h">
+      <Filter>Core\Timer</Filter>
+    </ClInclude>
+    <ClInclude Include="Core.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Scene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\InGameScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Scenemanager.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Layer.h">
+      <Filter>Scene\Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Obj.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Ref.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\MoveObj.h">
+      <Filter>Object\MoveObj</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\StaticObj.h">
+      <Filter>Object\StaticObj</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Player.h">
+      <Filter>Object\MoveObj\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Minion.h">
+      <Filter>Object\MoveObj\Monster</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -51,5 +144,8 @@
     <Image Include="icon1.ico">
       <Filter>리소스 파일</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint" />
   </ItemGroup>
 </Project>

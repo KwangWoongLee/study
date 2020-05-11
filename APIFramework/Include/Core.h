@@ -5,24 +5,7 @@
 
 class Core
 {
-private:
-	static Core* m_pInst;
-
-public:
-	static Core* GetInst()
-	{
-		if (!m_pInst) 
-			m_pInst = new Core();
-		return m_pInst;
-	}
-	static void DestroyInst()
-	{
-		SAFE_DELETE(m_pInst);
-	}
-
-private:
-	Core();
-	~Core();
+	DECLARE_SINGLE(Core)
 
 private:
 	static bool		m_bLoop;
@@ -31,11 +14,26 @@ private:
 	HINSTANCE	m_hInst;
 	HWND		m_hWnd;
 	RESOLUTION	m_tRS;
+	HDC			m_hDc;
 
+public:
+	RESOLUTION GetResolution() const
+	{
+		return m_tRS; 
+	}
 
 public:
 	bool Init(HINSTANCE hInst);
 	int Run();
+
+private:
+	void Logic();
+	void Input(float fDeltaTime);
+	int Update(float fDeltaTime);
+	int LateUpdate(float fDeltaTime);
+	void Collision(float fDeltaTime);
+	void Render(float fDeltaTime);
+
 
 private:
 	ATOM MyRegisterClass();
