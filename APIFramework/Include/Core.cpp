@@ -1,6 +1,12 @@
 #include "Core.h"
 #include "Scene/Scenemanager.h"
 #include "../Include/Core/Timer.h"
+#include "Core/PathManager.h"
+#include "Resources/ResourcesManager.h"
+#include "Resources/Texture.h"
+#include "Core/Camera.h"
+#include "Core/Input.h"
+#include "Collider/CollisionManager.h"
 
 Core* Core::m_pInst = NULL;
 bool Core::m_bLoop = true;
@@ -9,12 +15,35 @@ Core::Core()
 {
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
     //_CrtSetBreakAlloc();
+
+#ifdef _DEBUG
+    //콘솔창 생성함수.
+    AllocConsole();
+
+#endif
+
 }
+
+
 
 Core::~Core()
 {
     DESTROY_SINGLE(Scenemanager);
+    DESTROY_SINGLE(CResourcesManager);
+    DESTROY_SINGLE(CPathManager);
     DESTROY_SINGLE(CTimer);
+    DESTROY_SINGLE(CCamera);
+    DESTROY_SINGLE(CInput);
+    DESTROY_SINGLE(CCollisionManager);
+
+
+    ReleaseDC(m_hWnd,m_hDc);
+
+#ifdef _DEBUG
+    //콘솔창 생성함수.
+    FreeConsole();
+
+#endif
 }
 
 bool Core::Init(HINSTANCE hInst)
@@ -34,13 +63,32 @@ bool Core::Init(HINSTANCE hInst)
     m_hDc = GetDC(m_hWnd);
 
     //타이머 초기화
-    if (!GET_SINGLE(CTimer)->Init())
+    if (!GET_SINGLE(CTimer)->Init(m_hWnd))
+        return false;
+
+    //경로관리자 초기화
+    if (!GET_SINGLE(CPathManager)->Init())
+        return false;
+
+    //리소스관리자 초기화
+    if (!GET_SINGLE(CResourcesManager)->Init(hInst,m_hDc))
         return false;
 
     //장면관리자 초기화
     if (!GET_SINGLE(Scenemanager)->Init())
         return false;
         
+    //카메라관리자 초기화
+    if (!GET_SINGLE(CCamera)->Init(POSITION(0.f,0.f),m_tRS,RESOLUTION(1500,1200)))
+        return false;
+
+    //입력관리자 초기화
+    if (!GET_SINGLE(CInput)->Init(m_hWnd))
+        return false;
+
+    //충돌관리자 초기화
+    if (!GET_SINGLE(CCollisionManager)->Init())
+        return false;
 
 	return true;
 }
@@ -137,11 +185,13 @@ BOOL Core::Create()
 
 
     // 실제 윈도우의 타이틀바나 메뉴바를 포함한 윈도우 크기를 구해준다.
-    RECT rc = { 0,0,800,600 };
+    RECT rc = { 0,0,m_tRS.iW,m_tRS.iH };
     AdjustWindowRect(&rc, WS_OVERLAPPEDWINDOW, FALSE);
 
-    SetWindowPos(m_hWnd, HWND_TOPMOST, 100, 100, rc.right - rc.left,
+    SetWindowPos(m_hWnd, HWND_TOPMOST, 0, 0, rc.right - rc.left,
         rc.bottom - rc.top, SWP_NOMOVE | SWP_NOZORDER); // 내가원하는위치에 윈도우를 띄우고, 크기를 지정
+  
+
 
     ShowWindow(m_hWnd, SW_SHOW);
     UpdateWindow(m_hWnd);
@@ -169,14 +219,18 @@ void Core::Logic()
 
 void Core::Input(float fDeltaTime)
 {
+    GET_SINGLE(CInput)->Update(fDeltaTime);
+    
     GET_SINGLE(Scenemanager)->Input(fDeltaTime);
+    GET_SINGLE(CCamera)->Input(fDeltaTime);
 }
 
 
 int Core::Update(float fDeltaTime)
 {
     GET_SINGLE(Scenemanager)->Update(fDeltaTime);
-    return 0;
+    GET_SINGLE(CCamera)->Update(fDeltaTime);
+    return 0; 
 }
 
 
@@ -189,9 +243,22 @@ int Core::LateUpdate(float fDeltaTime)
 void Core::Collision(float fDeltaTime)
 {
     GET_SINGLE(Scenemanager)->Collision(fDeltaTime);
+
+    GET_SINGLE(CCollisionManager)->Collision(fDeltaTime);
+
 }
 
 void Core::Render(float fDeltaTime)
 {
-    GET_SINGLE(Scenemanager)->Render(m_hDc,fDeltaTime);
-}
+    //더블 버퍼링
+    CTexture* pBackBuffer = GET_SINGLE(CResourcesManager)->GetBackBuffer();
+
+    Rectangle(pBackBuffer->GetDC(), 0, 0, 1280, 720);
+
+    GET_SINGLE(Scenemanager)->Render(pBackBuffer->GetDC(),fDeltaTime);
+
+    BitBlt(m_hDc, 0, 0, 1280, 720, pBackBuffer->GetDC(), 0, 0, SRCCOPY);
+
+    SAFE_RELEASE(pBackBuffer);
+
+} 

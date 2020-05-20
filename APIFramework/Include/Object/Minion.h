@@ -5,6 +5,8 @@ class CMinion :
 {
 private:
 	friend class CObj;
+	friend class Scene;
+
 
 private:
 	CMinion();
@@ -13,6 +15,9 @@ private:
 
 private:
 	MOVE_DIR m_eDir;
+	float	m_fFireTime;
+	float	m_fFireLimitTime;
+
 
 public:
 	virtual bool Init();
@@ -20,4 +25,13 @@ public:
 	virtual int LateUpdate(float fDeltaTime);
 	virtual void Collision(float fDeltaTime);
 	virtual void Render(HDC hdc, float fDeltaTime);
+	virtual CMinion* Clone();
+
+public:
+	void CollisionBullet(class CCollider* pSrc,
+		class CCollider* pDest, float fDeltaTime);
+
+private:
+	void Fire();
+
 };

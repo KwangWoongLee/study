@@ -1,9 +1,22 @@
 #pragma once
+#include "Flag.h"
 
 typedef struct _tagResolution
 {
 	unsigned int	iW;
 	unsigned int	iH;
+
+	_tagResolution() :
+		iW(0),
+		iH(0)
+	{
+	}
+
+	_tagResolution(int x, int y) :
+		iW(x),
+		iH(y)
+	{
+	}
 
 } RESOLUTION, * PRESOLUTION;
 
@@ -93,6 +106,13 @@ typedef struct _tagPosition
 	{
 		x += pos.x;
 		y += pos.y;
+
+	}
+
+	void operator -= (const _tagPosition& pos)
+	{
+		x -= pos.x;
+		y -= pos.y;
 
 	}
 
@@ -204,3 +224,72 @@ typedef struct _tagPosition
 		return tPos;
 	}
 }POSITION, *PPOSITION,_SIZE, * P_SIZE;
+
+
+typedef struct _tagRectangle
+{
+	float l;
+	float r;
+	float b;
+	float t;
+
+	_tagRectangle() :
+		l(0.f),
+		r(0.f),
+		b(0.f),
+		t(0.f)
+	{
+	}
+
+
+}RECTANGLE, *PRECTANGLE;
+
+typedef struct _tagSphere
+{
+	POSITION	tCenter;
+	float		tRadius;
+
+	_tagSphere() :
+		tCenter(0.f,0.f),
+		tRadius(0.f)
+	{ 
+	}
+
+
+}SPHERE, * PSPHERE;
+
+typedef struct _tagPixel
+{
+	unsigned char r;
+	unsigned char g;
+	unsigned char b;
+
+
+}PIXEL, * PPIXEL;
+
+
+typedef struct _tagAnimationClip 
+{
+	ANIMATION_TYPE		 eType;
+	ANIMATION_OPTION	 eOption;
+	vector<class CTexture*> vecTexture;
+	float		fAnimationTime;
+	float		fAnimationFrameTime;
+	float		fAnimationLimitTime;
+	int iFrameX;
+	int iFrameY;
+	int iFrameMaxX;
+	int iFrameMaxY;
+	int iStartX;
+	int iStartY;
+	int iLengthX;
+	int iLengthY;
+	float	fOptionTime;
+	float	fOptionLimitTime;
+	_SIZE	tFrameSize;
+
+}ANIMATIONCLIP,*PANIMATIONCLIP;
+
+
+
+

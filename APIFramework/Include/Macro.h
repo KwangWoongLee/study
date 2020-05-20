@@ -26,3 +26,9 @@
 #define DESTROY_SINGLE(Type)	Type::DestroyInst()
 
 #define GET_RESOLUTION	GET_SINGLE(Core)->GetResolution()
+
+
+#define KEYDOWN(key)		CInput::GetInst()->KeyDown(key)
+#define KEYPRESS(key)		CInput::GetInst()->KeyPress(key)
+#define KEYUP(key)		CInput::GetInst()->KeyUp(key)
+#define KEYKEY(key)		KEYDOWN(key) || KEYPRESS(key)

@@ -40,6 +40,33 @@
     <Filter Include="Object\MoveObj\Monster">
       <UniqueIdentifier>{0cc36d73-f012-4735-b86f-75df2d4ee7e4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object\MoveObj\Bullet">
+      <UniqueIdentifier>{b2387f4f-fe62-4700-a373-cefe1a595509}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Path">
+      <UniqueIdentifier>{a8aed28c-73fd-4fe2-8206-a4d5542b8812}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{671ab9e3-04a9-4c30-bc28-8476ac75edf7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\StaticObj\Stage">
+      <UniqueIdentifier>{d09aa473-4308-4f9d-92b6-10df81f67a25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Camera">
+      <UniqueIdentifier>{8b580e20-71c1-44c9-aae8-8386ef5767cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Input">
+      <UniqueIdentifier>{a496c604-5628-4ae0-976d-d8169f88ba82}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Collider">
+      <UniqueIdentifier>{ed50d6b0-177c-4620-8357-2681f54a45b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Math">
+      <UniqueIdentifier>{5e0ca831-615d-4609-b345-0b330a636cb6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Animation">
+      <UniqueIdentifier>{71a00b1d-b5ca-4b53-90ad-49663196f2ab}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -80,6 +107,51 @@
     </ClCompile>
     <ClCompile Include="Object\Minion.cpp">
       <Filter>Object\MoveObj\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Bullet.cpp">
+      <Filter>Object\MoveObj\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\PathManager.cpp">
+      <Filter>Core\Path</Filter>
+    </ClCompile>
+    <ClCompile Include="Resources\ResourcesManager.cpp">
+      <Filter>Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="Resources\Texture.cpp">
+      <Filter>Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Stage.cpp">
+      <Filter>Object\StaticObj\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Camera.cpp">
+      <Filter>Core\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Input.cpp">
+      <Filter>Core\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider\Collider.cpp">
+      <Filter>Core\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider\ColliderRect.cpp">
+      <Filter>Core\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider\CollisionManager.cpp">
+      <Filter>Core\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider\ColliderSphere.cpp">
+      <Filter>Core\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Math.cpp">
+      <Filter>Core\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider\ColliderPixel.cpp">
+      <Filter>Core\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation\Animation.cpp">
+      <Filter>Core\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Bomb.cpp">
+      <Filter>Object\MoveObj\Bullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -133,6 +205,51 @@
     </ClInclude>
     <ClInclude Include="Object\Minion.h">
       <Filter>Object\MoveObj\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Bullet.h">
+      <Filter>Object\MoveObj\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\PathManager.h">
+      <Filter>Core\Path</Filter>
+    </ClInclude>
+    <ClInclude Include="Resources\ResourcesManager.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Resources\Texture.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Stage.h">
+      <Filter>Object\StaticObj\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Camera.h">
+      <Filter>Core\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Input.h">
+      <Filter>Core\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider\Collider.h">
+      <Filter>Core\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider\ColliderRect.h">
+      <Filter>Core\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider\CollisionManager.h">
+      <Filter>Core\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider\ColliderSphere.h">
+      <Filter>Core\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Math.h">
+      <Filter>Core\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider\ColliderPixel.h">
+      <Filter>Core\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation\Animation.h">
+      <Filter>Core\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Bomb.h">
+      <Filter>Object\MoveObj\Bullet</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

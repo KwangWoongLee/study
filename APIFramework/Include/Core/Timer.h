@@ -4,6 +4,7 @@
 class CTimer
 {
 private:
+	HWND			m_hWnd;
 	LARGE_INTEGER m_tSecond;
 	LARGE_INTEGER m_tTime;
 	float		m_fDeltaTime;
@@ -38,7 +39,7 @@ public:
 
 
 public:
-	bool Init();
+	bool Init(HWND hWnd);
 	void Update();
 
 	DECLARE_SINGLE(CTimer);

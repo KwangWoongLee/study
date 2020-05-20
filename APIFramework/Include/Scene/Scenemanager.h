@@ -11,6 +11,12 @@ private:
 	class Scene* m_pNextScene;
 
 public:
+	class Scene* GetScene()
+	{
+		return m_pScene;
+	}
+
+public:
 	bool Init();
 	void Input(float fDeltaTime);
 	int Update(float fDeltaTime);

@@ -16,5 +16,7 @@ public:
 	virtual int LateUpdate(float fDeltaTime);
 	virtual void Collision(float fDeltaTime);
 	virtual void Render(HDC hdc, float fDeltaTime);
+	virtual CStaticObj* Clone() = 0;
+
 };
 
