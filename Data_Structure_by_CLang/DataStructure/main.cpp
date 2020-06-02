@@ -1,6 +1,8 @@
 #include "SimpleLinkList.h"
 #include "Stack.h"
 #include "LinkListStack.h"
+#include "Queue.h"
+
 #include <iostream>
 
 using namespace std;
@@ -19,7 +21,7 @@ int main()
 
 	list->ViewAll();
 	*/	
-	/*
+	/* 순차리스트 스택
 	CStack* stack = new CStack;
 
 	stack->push(1);
@@ -33,6 +35,8 @@ int main()
 		cout << "스택이 비었습니다.";
 
 	*/
+	/* 연결리스트 스택
+	//연결리스트스택은 노드를 사용하며, 일반연결리스트 구현의 반대적 느낌이 든다.
 
 	CLinkListStack* stack = new CLinkListStack;
 	DATA data;
@@ -42,6 +46,34 @@ int main()
 	stack->push(data);
 	stack->pop();
 	stack->printStack();
-	
+	*/
+
+	/* 선형 큐 구현.
+
+	Queue* queue = new Queue;
+
+	if (queue->isEmpty())
+		std::cout << "큐가 비었습니다." << endl;
+
+	queue->Enqueue(1);
+
+	if (queue->isEmpty())
+		std::cout << "큐가 비었습니다.";
+	else
+	{
+		std::cout << queue->Front() << endl;
+		;
+	}
+
+	queue->Enqueue(2);
+	queue->Enqueue(3);
+	queue->Enqueue(4);
+	queue->Enqueue(5);
+
+	queue->Dequeue();
+	queue->Dequeue();
+	*/
+
+
 
 }
