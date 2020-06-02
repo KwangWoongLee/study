@@ -15,11 +15,19 @@ private:
 private:
 	float	m_fLimitDist;
 	float	m_fDist;
+	float	m_fLimitLifeTime;
+	float	m_fLifeTime;
+	bool	m_bLife;
 
 private:
 	void SetBulletDistance(float fDist)
 	{
 		m_fLimitDist = fDist;
+	}
+
+	void SetBombLife(float fLifeTime)
+	{
+		m_fLifeTime = fLifeTime;
 	}
 
 public:

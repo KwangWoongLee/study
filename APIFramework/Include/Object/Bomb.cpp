@@ -6,7 +6,10 @@
 
 CBomb::CBomb() :
 	m_fDist(0.f),
-	m_fLimitDist(500.f)
+	m_fLimitDist(500.f),
+	m_fLimitLifeTime(5.0f),
+	m_fLifeTime(0.f),
+	m_bLife(true)
 {
 
 }
@@ -16,7 +19,6 @@ CBomb::CBomb(const CBomb& bullet) :
 {
 	m_fLimitDist = bullet.m_fLimitDist;
 	m_fDist = bullet.m_fDist;
-
 }
 
 CBomb::~CBomb()
@@ -28,7 +30,6 @@ bool CBomb::Init()
 {
 	SetSpeed(0.f);
 	SetPivot(0.5f, 0.25f);
-	SetTexture("Bomb", L"Bomb/bomb.bmp");
 
 	//m_pTexture->SetColorKey(0, 248, 0);
 	CColliderSphere* pSphere = AddCollider<CColliderSphere>("BombBody");
@@ -38,13 +39,14 @@ bool CBomb::Init()
 
 	SAFE_RELEASE(pSphere);
 
+
+
 	return true;
 }
 
 int CBomb::Update(float fDeltaTime)
 {
 	CMoveObj::Update(fDeltaTime);
-	//m_pAnimation->ChangeClip("ActiveBomb");
 
 	return 0;
 }

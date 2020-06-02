@@ -43,7 +43,9 @@ bool CPlayer::Init()
 
 	SetPhysics(true);
 
-	CAnimation* pAni = CreateAnimation("PlayerAnimation");
+
+
+	CAnimation*  pAni = CreateAnimation("PlayerAnimation");
 
 
 
@@ -269,6 +271,25 @@ void CPlayer::PutBomb()
 
 
 	pBomb->SetPos(tPos);
+	CAnimation* pAnim = pBomb->CreateAnimation("BombAnimation");
+
+	vector<wstring> vecFileName;
+
+	for (int i = 1; i < 12; ++i)
+	{
+		wchar_t strFileName[MAX_PATH] = {};
+		wsprintf(strFileName, L"Bomb/bomb%d.bmp", i);
+		vecFileName.push_back(strFileName);
+
+	}
+
+	pBomb->AddAnimationClip("DefaultActive", AT_FRAME, AO_ONCE_DESTROY, 6.f, 11, 1,
+		0, 0, 11, 1, 0.f, "BombDefaultActive", vecFileName);
+
+
+
+	SAFE_RELEASE(pAnim);
+
 
 	SAFE_RELEASE(pBomb);
 

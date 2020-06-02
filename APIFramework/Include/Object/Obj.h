@@ -82,7 +82,6 @@ protected:
 	class CTexture* m_pTexture;
 	list<CCollider*> m_ColliderList; 
 	class CAnimation* m_pAnimation;
-	PANIMATIONCLIP m_pCurClip;
 
 public:
 	class CAnimation* CreateAnimation(const string& strTag);

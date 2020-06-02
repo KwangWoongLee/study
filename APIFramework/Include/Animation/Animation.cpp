@@ -114,7 +114,7 @@ bool CAnimation::AddClip(const string& strName, ANIMATION_TYPE eType, ANIMATION_
 {
 
 	PANIMATIONCLIP pClip = new ANIMATIONCLIP;
-
+	
 	pClip->eType = eType;
 	pClip->eOption = eOption;
 	pClip->fAnimationLimitTime = fAnimationLimitTime;
@@ -142,8 +142,6 @@ bool CAnimation::AddClip(const string& strName, ANIMATION_TYPE eType, ANIMATION_
 
 	pClip->tFrameSize.x = pClip->vecTexture[0]->GetWidth() / iFrameMaxX;
 	pClip->tFrameSize.y = pClip->vecTexture[0]->GetHeight() / iFrameMaxY;
-
-
 	pClip->fAnimationTime = 0.f;
 	pClip->iFrameX = iStartX;
 	pClip->iFrameY = iStartY;
@@ -200,7 +198,7 @@ void CAnimation::ChangeClip(const string& strClip)
 		m_pCurClip->fAnimationTime = 0.f;
 		m_pCurClip->fOptionTime = 0.f;
 	}
-
+	
 	m_pCurClip = FindClip(strClip);
 
 	if(m_pCurClip->eType == AT_ATLAS)
@@ -216,9 +214,9 @@ void CAnimation::ReturnClip()
 	ChangeClip(m_strDefalutClip);
 }
 
-PANIMATIONCLIP CAnimation::FindClip(const string& strName)
+PANIMATIONCLIP CAnimation::FindClip(const string& strClip)
 {
-	unordered_map<string, PANIMATIONCLIP>::iterator iter = m_mapClip.find(strName);
+	unordered_map<string, PANIMATIONCLIP>::iterator iter = m_mapClip.find(strClip);
 	
 	if (iter == m_mapClip.end())
 		return NULL;

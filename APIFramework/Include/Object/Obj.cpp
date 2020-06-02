@@ -21,7 +21,7 @@ CObj::CObj(const CObj& obj)
 {
 	*this = obj;
 
-	if (m_pAnimation)
+	if (obj.m_pAnimation)
 		m_pAnimation = obj.m_pAnimation->Clone();
 
 	if (m_pTexture)
