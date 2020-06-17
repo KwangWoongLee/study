@@ -19,7 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BinaryTree.cpp" />
     <ClCompile Include="LinkListStack.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Queue.cpp" />
@@ -27,7 +26,6 @@
     <ClCompile Include="Stack.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BinaryTree.h" />
     <ClInclude Include="LinkListStack.h" />
     <ClInclude Include="Queue.h" />
     <ClInclude Include="SimpleLinkList.h" />
